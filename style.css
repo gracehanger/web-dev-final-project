@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.welcome-image {
+    background-image: url('images/cloud-backdrop.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: green;
+    min-width: 100dvw;
+    min-height: auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.welcome-page {
+    display: grid;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    justify-content: center;
+    text-align: center;
+    justify-items: center; 
+    padding: 20px 40px 20px 40px;
+    background-color: rgb(172, 250, 172); 
+    min-width: 600px;
+    height: 300px;
+}
+
+.game-title {
+    display: grid;
+    align-self: center;
+    margin: 10px;
+}
+
+.select-game {
+    display: inline-block;
+    align-content: center;
+    background-color: white;
+    border-radius: 15px;
+    border: 2px solid rgb(0, 0, 0);
+    padding: 5px;
+    margin: 8px;
+    width: 300px;
+    text-decoration: none;
+    color: black;
+    font-size: 16pt;
+}
+
+@font-face {
+    font-family: 'Minecraft';
+    src: url('fonts/Minecraft.ttf') format('truetype');
+    font-weight: regular;
+}
+
+body {
+    font-family: 'Minecraft', sans-serif ;
+}
