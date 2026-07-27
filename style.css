@@ -59,4 +59,15 @@
 
 body {
     font-family: 'Minecraft', sans-serif ;
+    text-align: center;
+}
+
+#board {
+    background-color: lightskyblue;
+    border-bottom: 3px solid brown;
+    
+}
+
+h1 {
+    padding: 20px;
 }
