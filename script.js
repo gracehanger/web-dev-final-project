@@ -42,6 +42,16 @@ let cactiImg;
 let bushImg;
 
 
+//clouds
+let cloudArray = [];
+
+let cloud1Width = 200;
+let cloudsX = 700;
+
+let cloud1Img;
+
+let cloudVelocityX = -0.1;
+
 //moving
 let velocityX = -8; //obstacle moving left 
 let velocityY = 0;
@@ -78,11 +88,16 @@ window.onload = function() {
 
     bushImg = new Image();
     bushImg.src = "images/images.png"; //placeholders
+
+    cloud1Img = new Image();
+    cloud1Img.src = "images/images.png"; //placeholders
     
     requestAnimationFrame(update);
     setInterval(placeObstacle, 1000); 
-    document.addEventListener("keydown", moveCharacter);
-
+    setInterval(placeClouds, 3000);
+    document.addEventListener("keydown", moveCharacter); 
+    requestAnimationFrame(moveClouds);
+    
 }
 
 function update() { //used for drawing frames for our game
@@ -120,6 +135,17 @@ function update() { //used for drawing frames for our game
 
 }
 
+  //cloud drawing
+function moveClouds() {
+   
+    for (let i = 0; i < cloudArray.length; i++) {
+        let cloud = cloudArray[i];
+        cloud.x += cloudVelocityX;
+        context.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
+    }
+    requestAnimationFrame(moveClouds); 
+}
+
 function moveCharacter(event) {
     if (gameOver) {
         return;
@@ -128,6 +154,8 @@ function moveCharacter(event) {
     if ((event.code == "Space" || event.code == "ArrowUp") && char.y == charY) {
         //jump
         velocityY = -10;
+
+        //duck + crawl function??
     }
 }
 
@@ -173,6 +201,25 @@ if (gameOver) {
 }
 
 //CLOUD FUNCTION HERE
+
+function placeClouds() {
+    let cloud = {
+        img: null,
+        x: cloudsX,
+        y: (boardHeight - 50),
+        width: null,
+        height: 50
+    }
+
+    cloud.img = cloud1Img;
+    cloud.width = cloud1Width;
+    cloud.y = 50, 
+    cloudArray.push(cloud);
+
+     if (cloudArray.length > 10) {
+        cloudArray.shift();
+    }
+}
 
 function detectCollision(a, b) {
     return a.x < b.x + b.width &&
