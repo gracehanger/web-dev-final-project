@@ -4,9 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Player Page</title>
+    <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    
+
+    <!--
+    enderman
+    villager
+    steve
+    witch
+    skeletor
+    creeper
+    sheep
+    cow-->
+
+    <div class="page-container">
+        <h1 class="character-selection">CHOOSE YOUR PLAYER</h1>
+        <div class="characters-container">
+            <img src="images/faces/enderman_head.png" alt="enderman head" id="enderman-trigger" class="zoom-image" width="50px">
+                <audio id="enderman-noise" src="sounds/Enderman_idle1.ogg"></audio>
+            <img src="images/faces/villager_head.png" alt="villager head" id="villager-trigger" class="zoom-image" width="50px" >
+                <audio id="villager-noise" src="sounds/Villager_idle2.ogg"></audio>
+            <img src="images/faces/steve_head.png" alt="steve head" id="steve-trigger" width="50px">
+            <img src="images/faces/witch_head.png" alt="witch head" id="witch-trigger" class="zoom-image" width="50px">
+                <audio id="witch-noise" src="sounds/Witch_idle1.ogg"></audio>
+            <img src="images/skeletor_face.jpg" alt="skeletor head" id="skeletor-trigger" width="50px">
+            <img src="images/faces/creeper_head.png" alt="creeper head" id="creeper-trigger" width="50px">
+            <img src="images/sheep_face.webp" alt="sheep head" id="sheep-trigger" width="50px" height="50px">
+            <img src="images/cow_face.webp" alt="cow head" id="cow-trigger" width="50px" height="50px">
+        </div>
+    </div>
+
+   
 
 <!--
     <label for="nameSelect">Choose a name:</label>
@@ -20,4 +50,5 @@
 <p>Selected name: <span id="displayName">None</span></p>
     -->
 </body>
+<script src="sounds.js"></script>
 </html>

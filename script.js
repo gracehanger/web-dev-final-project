@@ -5,8 +5,8 @@ let boardHeight = 400;
 let context;
 
 //characters
-let charWidth = 40; //width of character image 
-let charHeight = 94; //height of character image
+let charWidth = 50; //width of character image 
+let charHeight = 130; //height of character image
 let charX = 50; //starting position of character
 let charY = boardHeight - charHeight;
 let charImg;
@@ -19,18 +19,19 @@ let char = {
 }
 
 let enderman = {
-    img: "images/images.png"
+    img: "images/still/enderman_still.png",
+    dead: "images/jump/enderman_jump2.png"
 }
 
 //tnt blocks, cacti, bushes
 let obstacleArray = [];
 
-let tntWidth = 34;
-let tntHeight = 34;
-let cactiWidth = 34;
-let cactiHeight = 78
-let bushWidth = 34;
-let bushHeight = 50;
+let tntWidth = 60;
+let tntHeight = 60;
+let largeCactusWidth = 90;
+let largeCactusHeight = 90;
+let miniCactusWidth = 60;
+let miniCactusHeight = 60;
 
 
 
@@ -38,19 +39,32 @@ let obstaclesX = 700;
 //let obstaclesY = boardHeight - cactiHeight; //come back later and try to make it for varying object heights 
 
 let tntImg;
-let cactiImg;
-let bushImg;
+let largeCactusImg;
+let miniCactusImg;
 
 
 //clouds
 let cloudArray = [];
 
-let cloud1Width = 200;
+let cloud1Width = 100;
+let cloud1Height = 50;
+let cloud2Width = 100;
+let cloud2Height = 100;
+let cloud3Width = 150;
+let cloud3Height = 90;
+let cloud4Width = 300;
+let cloud4Height = 120;
+let cloud5Width = 150;
+let cloud5Height = 50;
 let cloudsX = 700;
 
 let cloud1Img;
+let cloud2Img;
+let cloud3Img;
+let cloud4Img;
+let cloud5Img;
 
-let cloudVelocityX = -0.1;
+let cloudVelocityX = -1;
 
 //moving
 let velocityX = -8; //obstacle moving left 
@@ -62,6 +76,10 @@ let score = 0;
 
 
 let selectedChar = enderman;
+
+
+
+
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -81,16 +99,30 @@ window.onload = function() {
     };
 
     tntImg = new Image();
-    tntImg.src = "images/images.png"; //placeholders
+    tntImg.src = "images/obstacles/tnt.png"; 
 
-    cactiImg = new Image();
-    cactiImg.src = "images/images.png"; //placeholders
+    largeCactusImg = new Image();
+    largeCactusImg.src = "images/obstacles/large_cactus.png"; 
 
-    bushImg = new Image();
-    bushImg.src = "images/images.png"; //placeholders
+    miniCactusImg = new Image();
+    miniCactusImg.src = "images/obstacles/mini_cactus.png"; 
 
     cloud1Img = new Image();
-    cloud1Img.src = "images/images.png"; //placeholders
+    cloud1Img.src = "images/clouds/cloud1.png"; 
+
+    cloud2Img = new Image();
+    cloud2Img.src = "images/clouds/cloud2.png"; 
+
+    cloud3Img = new Image();
+    cloud3Img.src = "images/clouds/cloud3.png"; 
+
+    cloud4Img = new Image();
+    cloud4Img.src = "images/clouds/cloud4.png"; 
+
+    cloud5Img = new Image();
+    cloud5Img.src = "images/clouds/cloud5.png"; 
+
+
     
     requestAnimationFrame(update);
     setInterval(placeObstacle, 1000); 
@@ -121,9 +153,9 @@ function update() { //used for drawing frames for our game
 
         if (detectCollision(char, obstacle)) {
             gameOver = true;
-            charImg.src = "images/images.png" //placeholder 
+            charImg.src = selectedChar.dead; //how to remove the image underneath?? 
             charImg.onload = function() {
-                context.drawings(charImg, char.x, char.y, char.width, char.height)
+                context.drawImage(charImg, char.x, char.y, char.width, char.height) 
             }
         }
     }
@@ -169,7 +201,7 @@ if (gameOver) {
         x: obstaclesX,
         y: null,
         width: null,
-        height: cactiHeight //placeholder until I can make it variable 
+        height: largeCactusHeight //placeholder until I can make it variable 
     }
 
     let placeObstacleChance = Math.random();
@@ -177,20 +209,23 @@ if (gameOver) {
     if (placeObstacleChance > 0.9) {
         obstacle.img = tntImg;
         obstacle.width = tntWidth;
+        obstacle.height = tntHeight;
         obstacle.y = boardHeight - tntHeight;
         obstacleArray.push(obstacle);
     }
     else if (placeObstacleChance > 0.7) {
-        obstacle.img = cactiImg;
-        obstacle.width = cactiWidth;
-        obstacle.y = boardHeight - cactiHeight;
+        obstacle.img = largeCactusImg;
+        obstacle.width = largeCactusWidth;
+        obstacle.height = largeCactusHeight;
+        obstacle.y = boardHeight - largeCactusHeight;
         obstacleArray.push(obstacle);
     }
 
     else if (placeObstacleChance > 0.5) {
-        obstacle.img = bushImg;
-        obstacle.width = bushWidth;
-        obstacle.y = boardHeight - bushWidth;
+        obstacle.img = miniCactusImg;
+        obstacle.width = miniCactusWidth;
+        obstacle.height = miniCactusHeight;
+        obstacle.y = boardHeight - miniCactusHeight;
         obstacleArray.push(obstacle);
     }
 
@@ -206,17 +241,52 @@ function placeClouds() {
     let cloud = {
         img: null,
         x: cloudsX,
-        y: (boardHeight - 50),
+        y: 50,
         width: null,
-        height: 50
+       // height: 50
     }
 
-    cloud.img = cloud1Img;
-    cloud.width = cloud1Width;
-    cloud.y = 50, 
-    cloudArray.push(cloud);
+    let placeCloudChance = Math.random();
 
-     if (cloudArray.length > 10) {
+    if (placeCloudChance > 0.9) {
+        cloud.img = cloud1Img;
+        cloud.width = cloud1Width;
+       // cloud.height = cloud1Height;
+       // cloud.y = boardHeight - cloud1Height;
+        cloudArray.push(cloud);
+    }
+
+    else if (placeCloudChance > 0.8) {
+        cloud.img = cloud2Img;
+        cloud.width = cloud2Width;
+        //cloud.height = cloud2Height;
+        cloudArray.push(cloud);
+    }
+
+    else if (placeCloudChance > 0.7) {
+        cloud.img = cloud3Img;
+        cloud.width = cloud3Width;
+        cloud.height = cloud3Height;
+        cloudArray.push(cloud);
+    }
+
+    else if (placeCloudChance > 0.6) {
+        cloud.img = cloud4Img;
+        cloud.width = cloud4Width;
+        cloud.height = cloud4Height;
+        cloudArray.push(cloud);
+    }
+
+    else if (placeCloudChance > 0.5) {
+        cloud.img = cloud5Img;
+        cloud.width = cloud5Width;
+        cloud.height = cloud5Height;
+        cloudArray.push(cloud);
+    }
+
+    
+
+    if (cloudArray.length > 50) {
         cloudArray.shift();
     }
 }
