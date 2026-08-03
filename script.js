@@ -6,16 +6,22 @@ let context;
 
 //characters
 let charWidth = 50; //width of character image 
+let charDeadWidth = 75; //placeholder for dead enderman width
 let charHeight = 130; //height of character image
-let charX = 50; //starting position of character
+let charDeadHeight = 135; //placeholder for dead enderman height
+let charX = 50; 
 let charY = boardHeight - charHeight;
+let deadCharY = boardHeight - charDeadHeight;
 let charImg;
 
 let char = {
     x : charX,
     y : charY,
+    deadY: deadCharY,
     width : charWidth,
-    height : charHeight
+    deadWidth: charDeadWidth,
+    height : charHeight,
+    deadHeight: charDeadHeight
 }
 
 let enderman = {
@@ -87,6 +93,8 @@ window.onload = function() {
     board.width = boardWidth;
 
     context = board.getContext("2d"); //used for drawing on the board
+   // const testChar = document.getElementById('player-select').value;
+   // console.log(testChar);
 
     //draw initial character
     //context.fillStyle = "green";
@@ -155,7 +163,7 @@ function update() { //used for drawing frames for our game
             gameOver = true;
             charImg.src = selectedChar.dead; //how to remove the image underneath?? 
             charImg.onload = function() {
-                context.drawImage(charImg, char.x, char.y, char.width, char.height) 
+                context.drawImage(charImg, char.x, char.deadY, char.deadWidth, char.deadHeight) 
             }
         }
     }

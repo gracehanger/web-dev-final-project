@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choose Your Player Page</title>
     <link rel="stylesheet" href="style.css">
-    
+    <script src="script.js"></script> <!--should this be here?-->
 </head>
 <body>
 
@@ -21,8 +21,8 @@
 
     <div class="page-container">
         <h1 class="character-selection">CHOOSE YOUR PLAYER</h1>
-        <div class="characters-container">
-            <img src="images/faces/enderman_head.png" alt="enderman head" id="enderman-trigger" class="zoom-image" width="50px">
+        <div class="characters-container" id="player-select">
+            <input type="image" src="images/faces/enderman_head.png" alt="enderman head" id="enderman-trigger" class="zoom-image" width="50px" value="enderman_player">
                 <audio id="enderman-noise" src="sounds/Enderman_idle1.ogg"></audio>
             <img src="images/faces/villager_head.png" alt="villager head" id="villager-trigger" class="zoom-image" width="50px" >
                 <audio id="villager-noise" src="sounds/Villager_idle2.ogg"></audio>
@@ -51,4 +51,5 @@
     -->
 </body>
 <script src="sounds.js"></script>
+
 </html>
