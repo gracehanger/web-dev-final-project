@@ -36,6 +36,21 @@ hoverElementVillager.addEventListener('mouseleave', () => {
 });
 
 //steve
+const hoverElementSteve = document.getElementById('steve-trigger');
+const triggerSoundSteve = document.getElementById('steve-noise');
+
+hoverElementSteve.addEventListener('mouseenter', () => {
+    hoverElementSteve.style.transform = 'scale(1.1) rotate(10deg)';
+    triggerSoundSteve.currentTime = 0;
+    triggerSoundSteve.play().catch(error => {
+        console.log("Playback prevented until user interacts with screen")
+    });
+});
+
+hoverElementSteve.addEventListener('mouseleave', () => {
+    hoverElementSteve.style.transform = 'scale(1.0)';
+    triggerSoundSteve.pause();
+});
 
 //witch
 const hoverElementWitch = document.getElementById('witch-trigger');
@@ -55,6 +70,119 @@ hoverElementWitch.addEventListener('mouseleave', () => {
 });
 
 //skeletor
+const hoverElementSkeletor = document.getElementById('skeletor-trigger');
+const triggerSoundSkeletor = document.getElementById('skeletor-noise');
+
+hoverElementSkeletor.addEventListener('mouseenter', () => {
+    hoverElementSkeletor.style.transform = 'scale(1.1) rotate(10deg)';
+    triggerSoundSkeletor.currentTime = 0;
+    triggerSoundSkeletor.play().catch(error => {
+        console.log("Playback prevented until user interacts with screen")
+    });
+});
+
+hoverElementSkeletor.addEventListener('mouseleave', () => {
+    hoverElementSkeletor.style.transform = 'scale(1.0)';
+    triggerSoundSkeletor.pause();
+});
 
 //creeper
+const hoverElementCreeper = document.getElementById('creeper-trigger');
+const triggerSoundCreeper = document.getElementById('creeper-noise');
 
+hoverElementCreeper.addEventListener('mouseenter', () => {
+    hoverElementCreeper.style.transform = 'scale(1.1) rotate(10deg)';
+    triggerSoundCreeper.currentTime = 0;
+    triggerSoundCreeper.play().catch(error => {
+        console.log("Playback prevented until user interacts with screen")
+    });
+});
+
+hoverElementCreeper.addEventListener('mouseleave', () => {
+    hoverElementCreeper.style.transform = 'scale(1.0)';
+    triggerSoundCreeper.pause();
+});
+
+//sheep
+const hoverElementSheep = document.getElementById('sheep-trigger');
+const triggerSoundSheep = document.getElementById('sheep-noise');
+
+hoverElementSheep.addEventListener('mouseenter', () => {
+    hoverElementSheep.style.transform = 'scale(1.1) rotate(10deg)';
+    triggerSoundSheep.currentTime = 0;
+    triggerSoundSheep.play().catch(error => {
+        console.log("Playback prevented until user interacts with screen")
+    });
+});
+
+hoverElementSheep.addEventListener('mouseleave', () => {
+    hoverElementSheep.style.transform = 'scale(1.0)';
+    triggerSoundSheep.pause();
+});
+
+//cow
+const hoverElementCow = document.getElementById('cow-trigger');
+const triggerSoundCow = document.getElementById('cow-noise');
+
+hoverElementCow.addEventListener('mouseenter', () => {
+    hoverElementCow.style.transform = 'scale(1.1) rotate(10deg)';
+    triggerSoundCow.currentTime = 0;
+    triggerSoundCow.play().catch(error => {
+        console.log("Playback prevented until user interacts with screen")
+    });
+});
+
+hoverElementCow.addEventListener('mouseleave', () => {
+    hoverElementCow.style.transform = 'scale(1.0)';
+    triggerSoundCow.pause();
+});
+
+
+//player selection
+const endermanButton = document.getElementById('enderman-trigger');
+endermanButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'enderman-trigger');
+    window.location.href = 'game.html';
+});
+
+const villagerButton = document.getElementById('villager-trigger');
+villagerButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'villager-trigger');
+    window.location.href = 'game.html';
+});
+
+const steveButton = document.getElementById('steve-trigger');
+steveButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'steve-trigger');
+    window.location.href = 'game.html';
+});
+
+const witchButton = document.getElementById('witch-trigger');
+witchButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'witch-trigger');
+    window.location.href = 'game.html';
+});
+
+const skeletorButton = document.getElementById('skeletor-trigger');
+skeletorButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'skeletor-trigger');
+    window.location.href = 'game.html';
+});
+
+const creeperButton = document.getElementById('creeper-trigger');
+creeperButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'creeper-trigger');
+    window.location.href = 'game.html';
+});
+
+const sheepButton = document.getElementById('sheep-trigger');
+sheepButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'sheep-trigger');
+    window.location.href = 'game.html';
+});
+
+const cowButton = document.getElementById('cow-trigger');
+cowButton.addEventListener('click', function() {
+    localStorage.setItem('clickedButton', 'cow-trigger');
+    window.location.href = 'game.html';
+});

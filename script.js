@@ -6,17 +6,17 @@ let context;
 
 //characters
 let charWidth = 50; //width of character image 
-let charDeadWidth = 75; //placeholder for dead enderman width
+let charDeadWidth = 80; //placeholder for dead enderman width
 let charHeight = 130; //height of character image
-let charDeadHeight = 135; //placeholder for dead enderman height
+let charDeadHeight = 137; //placeholder for dead enderman height
 let charX = 50; 
 let charY = boardHeight - charHeight;
 let deadCharY = boardHeight - charDeadHeight;
 let charImg;
 
 let char = {
-    x : charX,
-    y : charY,
+    x : charX, //need to make an dead.x for off centering
+    y : charY, 
     deadY: deadCharY,
     width : charWidth,
     deadWidth: charDeadWidth,
@@ -24,10 +24,26 @@ let char = {
     deadHeight: charDeadHeight
 }
 
-let enderman = {
-    img: "images/still/enderman_still.png",
-    dead: "images/jump/enderman_jump2.png"
-}
+//character images 
+const character = {
+    enderman: {
+        name: 'enderman',
+        img: "images/still/enderman_still.png",
+        dead: "images/jump/enderman_jump2.png"
+    },
+
+    villager: {
+        name: 'villager',
+        img: "images/still/villager_still.png",
+        dead: "images/jump/villager_jump.png"
+    },
+
+    witch: {
+        name: 'witch',
+        img: "images/still/witch_still.png",
+        dead: "images/jump/witch_jump.png"
+    }
+};
 
 //tnt blocks, cacti, bushes
 let obstacleArray = [];
@@ -62,7 +78,7 @@ let cloud4Width = 300;
 let cloud4Height = 120;
 let cloud5Width = 150;
 let cloud5Height = 50;
-let cloudsX = 700;
+let cloudsX = 750;
 
 let cloud1Img;
 let cloud2Img;
@@ -81,10 +97,36 @@ let gameOver = false;
 let score = 0;
 
 
-let selectedChar = enderman;
+
+let selectedChar;
+//player selection (in progress)
+
+window.addEventListener('DOMContentLoaded', function() {
+    const playerSelection = localStorage.getItem('clickedButton');
+
+    if (playerSelection) {
+        console.log('The player selected was: ' + playerSelection);
+    };
+
+});
 
 
 
+// making sure the selected character image generates (WIP) not working at the moment
+if (playerSelection = 'enderman-trigger') {
+        selectedChar = character.enderman;
+    }
+    else if (playerSelection = 'villager-trigger') {
+        selectedChar = character.villager;
+    }
+    else if (playerSelection = 'witch-trigger') {
+        selectedChar = character.witch;
+    }
+//
+
+console.log(selectedChar.name); //it's not selecting the correct character that was clicked
+
+setInterval(placeClouds, 3000);
 
 
 window.onload = function() {
@@ -93,12 +135,6 @@ window.onload = function() {
     board.width = boardWidth;
 
     context = board.getContext("2d"); //used for drawing on the board
-   // const testChar = document.getElementById('player-select').value;
-   // console.log(testChar);
-
-    //draw initial character
-    //context.fillStyle = "green";
-    //context.fillRect(char.x, char.y, char.width, char.height);
 
     charImg = new Image(); //new Image object
     charImg.src = selectedChar.img;
@@ -134,16 +170,16 @@ window.onload = function() {
     
     requestAnimationFrame(update);
     setInterval(placeObstacle, 1000); 
-    setInterval(placeClouds, 3000);
     document.addEventListener("keydown", moveCharacter); 
-    requestAnimationFrame(moveClouds);
-    
+    requestAnimationFrame(moveClouds); //need to fix this
+     
 }
 
 function update() { //used for drawing frames for our game
     requestAnimationFrame(update);
     if (gameOver) {
         return;
+
     }
 
     context.clearRect(0, 0, board.width, board.height);
@@ -161,7 +197,8 @@ function update() { //used for drawing frames for our game
 
         if (detectCollision(char, obstacle)) {
             gameOver = true;
-            charImg.src = selectedChar.dead; //how to remove the image underneath?? 
+            context.clearRect(char.x, char.y, char.width, char.height); //clearing live character
+            charImg.src = selectedChar.dead; 
             charImg.onload = function() {
                 context.drawImage(charImg, char.x, char.deadY, char.deadWidth, char.deadHeight) 
             }
@@ -177,14 +214,14 @@ function update() { //used for drawing frames for our game
 
   //cloud drawing
 function moveClouds() {
-   
     for (let i = 0; i < cloudArray.length; i++) {
         let cloud = cloudArray[i];
         cloud.x += cloudVelocityX;
         context.drawImage(cloud.img, cloud.x, cloud.y, cloud.width, cloud.height);
     }
-    requestAnimationFrame(moveClouds); 
+   requestAnimationFrame(moveClouds); 
 }
+
 
 function moveCharacter(event) {
     if (gameOver) {
