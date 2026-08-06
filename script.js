@@ -4,6 +4,7 @@ let boardWidth = 750;
 let boardHeight = 400;
 let context;
 
+
 //characters
 let charWidth = 50; //width of character image 
 let charDeadWidth = 80; //placeholder for dead enderman width
@@ -14,18 +15,10 @@ let charY = boardHeight - charHeight;
 let deadCharY = boardHeight - charDeadHeight;
 let charImg;
 
-let char = {
-    x : charX, //need to make an dead.x for off centering
-    y : charY, 
-    deadY: deadCharY,
-    width : charWidth,
-    deadWidth: charDeadWidth,
-    height : charHeight,
-    deadHeight: charDeadHeight
-}
+
 
 //character images 
-const character = {
+let character = {
     enderman: {
         name: 'enderman',
         img: "images/still/enderman_still.png",
@@ -35,7 +28,15 @@ const character = {
     villager: {
         name: 'villager',
         img: "images/still/villager_still.png",
-        dead: "images/jump/villager_jump.png"
+        dead: "images/jump/villager_jump.png",
+        charHeight: 300,
+        charDeadHeight: 400
+    },
+
+    steve: {
+        name: 'steve',
+        img: "images/still/steve_still.png",
+        dead: "images/jump/steve_jump.png"
     },
 
     witch: {
@@ -43,6 +44,7 @@ const character = {
         img: "images/still/witch_still.png",
         dead: "images/jump/witch_jump.png"
     }
+
 };
 
 //tnt blocks, cacti, bushes
@@ -86,7 +88,7 @@ let cloud3Img;
 let cloud4Img;
 let cloud5Img;
 
-let cloudVelocityX = -1;
+let cloudVelocityX = -0.5;
 
 //moving
 let velocityX = -8; //obstacle moving left 
@@ -96,9 +98,8 @@ let gravity = .4;
 let gameOver = false;
 let score = 0;
 
-
-
 let selectedChar;
+
 //player selection (in progress)
 
 window.addEventListener('DOMContentLoaded', function() {
@@ -108,23 +109,48 @@ window.addEventListener('DOMContentLoaded', function() {
         console.log('The player selected was: ' + playerSelection);
     };
 
-});
-
-
-
-// making sure the selected character image generates (WIP) not working at the moment
-if (playerSelection = 'enderman-trigger') {
+    // making sure the selected character image generates (WIP) not working at the moment
+    if (playerSelection === 'enderman-trigger') {
         selectedChar = character.enderman;
     }
-    else if (playerSelection = 'villager-trigger') {
+    else if (playerSelection === 'villager-trigger') {
         selectedChar = character.villager;
     }
-    else if (playerSelection = 'witch-trigger') {
+    else if (playerSelection ==='steve-trigger') {
+        selectedChar = character.steve;
+    }
+    else if (playerSelection === 'witch-trigger') {
         selectedChar = character.witch;
     }
-//
+    else if (playerSelection === 'skeletor-trigger') {
+        selectedChar = character.skeletor;
+    }
+    else if (playerSelection === 'creeper-trigger') {
+        selectedChar = character.witch;
+    }
+    else if (playerSelection === 'sheep-trigger') {
+        selectedChar = character.sheep;
+    }
+    else if (playerSelection === 'cow-trigger') {
+        selectedChar = character.cow;
+    }
+    console.log(selectedChar.name);
+    console.log(selectedChar.charHeight);
+});
 
-console.log(selectedChar.name); //it's not selecting the correct character that was clicked
+console.log(selectedChar.name);
+
+let char = {
+    x : charX, //need to make an dead.x for off centering
+    y : charY, 
+    deadY: deadCharY,
+    width : charWidth,
+    deadWidth: charDeadWidth,
+    height : selectedChar.charHeight,
+    deadHeight: selectedChar.charDeadHeight
+}
+
+ //it's not selecting the correct character that was clicked
 
 setInterval(placeClouds, 3000);
 
@@ -135,12 +161,13 @@ window.onload = function() {
     board.width = boardWidth;
 
     context = board.getContext("2d"); //used for drawing on the board
-
+   
     charImg = new Image(); //new Image object
     charImg.src = selectedChar.img;
     charImg.onload = function() {
-        context.drawImage(charImg, char.x, char.y, char.width, char.height);
+        context.drawImage(charImg, char.x, char.y, char.width, char.height); //trying to get the images dimensions to vary based on the character
     };
+
 
     tntImg = new Image();
     tntImg.src = "images/obstacles/tnt.png"; 
@@ -177,40 +204,46 @@ window.onload = function() {
 
 function update() { //used for drawing frames for our game
     requestAnimationFrame(update);
-    if (gameOver) {
-        return;
-
-    }
 
     context.clearRect(0, 0, board.width, board.height);
 
     //character drawing 
-    velocityY += gravity;
-    char.y = Math.min(char.y + velocityY, charY); //apply gravity to current character
-    context.drawImage(charImg, char.x, char.y, char.width, char.height); //every frame, the char will be drawn over and over again
+    if (!gameOver) {
+        velocityY += gravity;
+        char.y = Math.min(char.y + velocityY, charY); //apply gravity to current character
+    }
+
+    if (gameOver) {
+        context.drawImage(charImg, char.x, char.y, char.deadWidth, char.deadHeight); 
+    } else {
+        context.drawImage(charImg, char.x, char.y, char.width, char.height);
+    };
 
     //obstacle drawing 
     for (let i = 0; i < obstacleArray.length; i++) {
         let obstacle = obstacleArray[i];
+
+        if (!gameOver) {
         obstacle.x += velocityX;
+        }
         context.drawImage(obstacle.img, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
-        if (detectCollision(char, obstacle)) {
+        if (!gameOver && detectCollision(char, obstacle)) {
             gameOver = true;
-            context.clearRect(char.x, char.y, char.width, char.height); //clearing live character
             charImg.src = selectedChar.dead; 
-            charImg.onload = function() {
-                context.drawImage(charImg, char.x, char.deadY, char.deadWidth, char.deadHeight) 
             }
         }
+    
+    if (!gameOver) {
+        score++;
     }
 
     context.fillStyle = "maroon";
-    score++;
+   
     context.font = "30px minecraft"
     context.fillText(score, 5, 30);
 
-}
+};
 
   //cloud drawing
 function moveClouds() {
