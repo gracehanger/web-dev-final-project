@@ -1,21 +1,5 @@
 //trying to get usernames to be submitted and error message if it's already been taken
 
-const input = document.getElementById('username');
-const message = document.getElementById('availableMessage');
-const takenNames = ['steve', 'simon']; //need to push submitted names to this array?
-
-input.addEventListener('input', function() {
-    const val = input.value.trim().toLowerCase();
-
-    if (takenNames.includes(val)) {
-        message.textContent = 'This name is unavailable';
-        message.className = 'taken';
-    } else {
-        message.textContent = 'Test';
-        message.className = 'available';
-    }
-});
-
 //Sound Effects
 
 //enderman

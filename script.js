@@ -5,20 +5,7 @@ let boardHeight = 400;
 let context;
 
 const input = document.getElementById('username');
-const message = document.getElementById('availableMessage');
-const takenNames = ['steve', 'simon']; //need to push submitted names to this array?
 
-input.addEventListener('input', function() {
-    const val = input.value.trim().toLowerCase();
-
-    if (takenNames.includes(val)) {
-        message.textContent = 'This name is unavailable';
-        message.className = 'taken';
-    } else {
-        message.textContent = 'good';
-        message.className = 'available';
-    }
-});
 
 //player input information
 const playerNameInput = document.getElementById("playerId");
@@ -74,6 +61,46 @@ let character = {
         charDeadWidth: 95,
         charHeight: 142,
         charDeadHeight: 142
+    },
+
+    skeletor: {
+        name: 'skeletor',
+        img: "images/still/skeletor_still.png",
+        dead: "images/jump/skeletor_jump.png",
+        charWidth: 50,
+        charDeadWidth: 80, 
+        charHeight: 130, 
+        charDeadHeight: 137 //placeholder dimensions
+    },
+
+    creeper: {
+        name: 'creeper',
+        img: "images/still/creeper_still.png",
+        dead: "images/still/creeper_still.png", //no dead image for creeper
+        charWidth: 50,
+        charDeadWidth: 80, 
+        charHeight: 130, 
+        charDeadHeight: 137 //placeholder dimensions
+    },
+
+    sheep: {
+        name: 'sheep',
+        img: "images/still/sheep_still.png",
+        dead: "images/still/sheep_still.png", //no dead image for sheep
+        charWidth: 50,
+        charDeadWidth: 80, 
+        charHeight: 130, 
+        charDeadHeight: 137 //placeholder dimensions
+    },
+
+    cow: {
+        name: 'cow',
+        img: "images/still/cow_still.png",
+        dead: "images/still/cow_still.png", //no dead image for cow
+        charWidth: 50,
+        charDeadWidth: 80, 
+        charHeight: 130, 
+        charDeadHeight: 137 //placeholder dimensions
     }
 
 };
@@ -410,3 +437,5 @@ function detectCollision(a, b) {
            a.y < b.y + b.height &&
            a.y + a.height > b.y 
 }
+
+//set timeout page and then go to a page where it says you died, show high scores, and then ranks you amongst your high scores
