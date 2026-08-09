@@ -4,6 +4,24 @@ let boardWidth = 750;
 let boardHeight = 400;
 let context;
 
+const input = document.getElementById('username');
+const message = document.getElementById('availableMessage');
+const takenNames = ['steve', 'simon']; //need to push submitted names to this array?
+
+input.addEventListener('input', function() {
+    const val = input.value.trim().toLowerCase();
+
+    if (takenNames.includes(val)) {
+        message.textContent = 'This name is unavailable';
+        message.className = 'taken';
+    } else {
+        message.textContent = 'good';
+        message.className = 'available';
+    }
+});
+
+//player input information
+const playerNameInput = document.getElementById("playerId");
 
 //characters
 let charWidth = 50; //width of character image 
@@ -11,38 +29,51 @@ let charDeadWidth = 80; //placeholder for dead enderman width
 let charHeight = 130; //height of character image
 let charDeadHeight = 137; //placeholder for dead enderman height
 let charX = 50; 
-let charY = boardHeight - charHeight;
+let charY;
 let deadCharY = boardHeight - charDeadHeight;
 let charImg;
-
-
+let char;
 
 //character images 
 let character = {
     enderman: {
         name: 'enderman',
         img: "images/still/enderman_still.png",
-        dead: "images/jump/enderman_jump2.png"
+        dead: "images/jump/enderman_jump2.png",
+        charWidth: 50,
+        charDeadWidth: 80, 
+        charHeight: 130, 
+        charDeadHeight: 137   
     },
 
     villager: {
         name: 'villager',
         img: "images/still/villager_still.png",
         dead: "images/jump/villager_jump.png",
-        charHeight: 300,
-        charDeadHeight: 400
+        charWidth: 50,
+        charDeadWidth: 60,
+        charHeight: 130,
+        charDeadHeight: 140
     },
 
     steve: {
         name: 'steve',
         img: "images/still/steve_still.png",
-        dead: "images/jump/steve_jump.png"
-    },
+        dead: "images/jump/steve_jump.png",
+        charWidth: 65,
+        charDeadWidth: 95,
+        charHeight: 130,
+        charDeadHeight: 142
+        },
 
     witch: {
         name: 'witch',
         img: "images/still/witch_still.png",
-        dead: "images/jump/witch_jump.png"
+        dead: "images/jump/witch_jump.png",
+        charWidth: 60,
+        charDeadWidth: 95,
+        charHeight: 142,
+        charDeadHeight: 142
     }
 
 };
@@ -135,22 +166,13 @@ window.addEventListener('DOMContentLoaded', function() {
         selectedChar = character.cow;
     }
     console.log(selectedChar.name);
-    console.log(selectedChar.charHeight);
 });
 
-console.log(selectedChar.name);
+//console.log(selectedChar.name);
 
-let char = {
-    x : charX, //need to make an dead.x for off centering
-    y : charY, 
-    deadY: deadCharY,
-    width : charWidth,
-    deadWidth: charDeadWidth,
-    height : selectedChar.charHeight,
-    deadHeight: selectedChar.charDeadHeight
-}
 
- //it's not selecting the correct character that was clicked
+
+
 
 setInterval(placeClouds, 3000);
 
@@ -161,7 +183,20 @@ window.onload = function() {
     board.width = boardWidth;
 
     context = board.getContext("2d"); //used for drawing on the board
-   
+    
+    charY = boardHeight - selectedChar.charHeight; //how to get the character to not go through the bottom border of the canvas?
+
+    char = {
+        x : charX, //need to make an dead.x for off centering
+        deadX: charX - 15,
+        y : boardHeight - selectedChar.charHeight,
+        deadY: deadCharY,
+        width : selectedChar.charWidth,
+        deadWidth: selectedChar.charDeadWidth,
+        height : selectedChar.charHeight,
+        deadHeight: selectedChar.charDeadHeight
+    }
+
     charImg = new Image(); //new Image object
     charImg.src = selectedChar.img;
     charImg.onload = function() {
@@ -214,7 +249,7 @@ function update() { //used for drawing frames for our game
     }
 
     if (gameOver) {
-        context.drawImage(charImg, char.x, char.y, char.deadWidth, char.deadHeight); 
+        context.drawImage(charImg, char.deadX, char.y, char.deadWidth, char.deadHeight); 
     } else {
         context.drawImage(charImg, char.x, char.y, char.width, char.height);
     };
