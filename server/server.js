@@ -36,7 +36,7 @@ app.get('/players', (req, res) => {
 app.post('/players', (req, res) => {      
   const { name, character } = req.body;
   const players = readPlayers();
-  const newPlayer = { name: name, character: character, score: 0 };
+  const newPlayer = { name: name, character: character, score: 0 }; //need to send a combined name and character, score is automatically zero
   players.push(newPlayer);
   writePlayers(players);
   res.json(newPlayer);

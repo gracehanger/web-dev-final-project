@@ -4,11 +4,6 @@ let boardWidth = 750;
 let boardHeight = 400;
 let context;
 
-const input = document.getElementById('username');
-
-
-//player input information
-const playerNameInput = document.getElementById("playerId");
 
 //characters
 let charWidth = 50; //width of character image 
@@ -194,11 +189,6 @@ window.addEventListener('DOMContentLoaded', function() {
     }
     console.log(selectedChar.name);
 });
-
-//console.log(selectedChar.name);
-
-
-
 
 
 setInterval(placeClouds, 3000);

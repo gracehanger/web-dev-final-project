@@ -1,7 +1,15 @@
 //trying to get usernames to be submitted and error message if it's already been taken
+document.addEventListener('DOMContentLoaded', function() {
+    const storedName = localStorage.getItem('savedName');
+    const chooseCharacterMessage = document.getElementById('chooseCharacterMessage');
+    
+    if (storedName) {
+        chooseCharacterMessage.textContent = `CHOOSE YOUR CHARACTER, ${storedName}:`;
+    };
+
+});
 
 //Sound Effects
-
 //enderman
 const hoverElementEnderman = document.getElementById('enderman-trigger');
 const triggerSoundEnderman = document.getElementById('enderman-noise');

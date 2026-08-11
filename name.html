@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter your name</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <form id="userForm" action="index.html">
+        <label for="nameInput">ENTER YOUR NAME:</label>
+        <input type="text" id="nameInput" placeholder="" required/>
+        <button type="submit" id="saveButton">Submit Name</button>
+        <p id="error-message" style="color: red;"></p>
+    </form>
+
+    <script>
+        const userForm = document.getElementById('userForm');
+        const saveButton = document.getElementById('saveButton');
+        const errorMessage = document.getElementById('error-message');
+        
+        userForm.addEventListener('submit', function(e) {
+            const rejected = /^[A-Za-z\s]+$/;
+            const typedName = document.getElementById('nameInput').value;
+            
+        if (!rejected.test(typedName)) {
+            e.preventDefault();
+            errorMessage.textContent = "Name cannot include numbers or special characters";
+            console.log("Name cannot include numbers or special characters");
+            return; 
+        } else {
+            errorMessage.textContent = '';
+        }
+        
+        localStorage.setItem('savedName', typedName);
+        });
+    </script>
+</body>
+</html>
