@@ -1,8 +1,9 @@
 //board
-let board; //references canvas tag
+board = document.getElementById("board");
 let boardWidth = 750;
 let boardHeight = 400;
 let context;
+
 
 
 //characters
@@ -195,7 +196,7 @@ setInterval(placeClouds, 3000);
 
 
 window.onload = function() {
-    board = document.getElementById("board");
+    if (!board) return; //exits if the board isn't on the page
     board.height = boardHeight;
     board.width = boardWidth;
 
@@ -317,7 +318,7 @@ function moveCharacter(event) {
         //jump
         velocityY = -10;
 
-        //duck + crawl function??
+
     }
 }
 
@@ -331,7 +332,7 @@ if (gameOver) {
         x: obstaclesX,
         y: null,
         width: null,
-        height: largeCactusHeight //placeholder until I can make it variable 
+        height: largeCactusHeight 
     }
 
     let placeObstacleChance = Math.random();

@@ -170,3 +170,13 @@ h1 {
             padding: 20px;
         }
 
+
+
+@media screen and (width < 600px) {
+    .characters-container  {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(4, 1fr);
+        }
+}
+

@@ -55,6 +55,25 @@ app.post('/players/update', (req, res) => {    //when the code goes to this rout
   res.json(player);
 });
 
+async function fetchPlayers() {
+    const endpoint = '/players';
+    try {
+        const response = await fetch(endpoint);
+        const returningPlayers = await response.json();
+        const receivedPlayers = returningPlayers.name; //accessing the name in the player object in json
+        return receivedPlayers;
+    } catch(error) {
+        console.error(error);
+    }
+};
+
+app.use("/players", async (request, response) => {
+    response.status(200).json({
+        status: 200,
+        data: await fetchPlayers(),
+    });
+});
+
 app.listen(3000, () => {
   console.log('Server running on http://localhost:3000');
 });
