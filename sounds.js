@@ -7,7 +7,21 @@ document.addEventListener('DOMContentLoaded', function() {
         chooseCharacterMessage.textContent = `CHOOSE YOUR CHARACTER, ${storedName}:`;
     };
 
+
 });
+
+//attempt at getting the name to store to the api, doesn't let you click on a player, it says storedName isn't 
+//identified but it is above?
+fetch('http://localhost:3000/players', {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json'
+    },
+    body: JSON.stringify({name: storedName})
+})
+.then(response => response.json())
+.then(data => console.log('success: ', data))
+.catch(error => console.error('error: ', error));
 
 //Sound Effects
 //enderman

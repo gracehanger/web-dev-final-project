@@ -73,30 +73,30 @@ let character = {
         name: 'creeper',
         img: "images/still/creeper_still.png",
         dead: "images/still/creeper_still.png", //no dead image for creeper
-        charWidth: 50,
-        charDeadWidth: 80, 
+        charWidth: 45,
+        charDeadWidth: 45, 
         charHeight: 130, 
-        charDeadHeight: 137 //placeholder dimensions
+        charDeadHeight: 130 //placeholder dimensions
     },
 
     sheep: {
         name: 'sheep',
         img: "images/still/sheep_still.png",
         dead: "images/still/sheep_still.png", //no dead image for sheep
-        charWidth: 50,
-        charDeadWidth: 80, 
-        charHeight: 130, 
-        charDeadHeight: 137 //placeholder dimensions
+        charWidth: 60,
+        charDeadWidth: 60, 
+        charHeight: 100, 
+        charDeadHeight: 100
     },
 
     cow: {
         name: 'cow',
         img: "images/still/cow_still.png",
         dead: "images/still/cow_still.png", //no dead image for cow
-        charWidth: 50,
-        charDeadWidth: 80, 
-        charHeight: 130, 
-        charDeadHeight: 137 //placeholder dimensions
+        charWidth: 60,
+        charDeadWidth: 60, 
+        charHeight: 120, 
+        charDeadHeight: 120 
     }
 
 };
@@ -114,7 +114,6 @@ let miniCactusHeight = 60;
 
 
 let obstaclesX = 700;
-//let obstaclesY = boardHeight - cactiHeight; //come back later and try to make it for varying object heights 
 
 let tntImg;
 let largeCactusImg;
@@ -180,7 +179,7 @@ window.addEventListener('DOMContentLoaded', function() {
         selectedChar = character.skeletor;
     }
     else if (playerSelection === 'creeper-trigger') {
-        selectedChar = character.witch;
+        selectedChar = character.creeper;
     }
     else if (playerSelection === 'sheep-trigger') {
         selectedChar = character.sheep;
