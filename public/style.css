@@ -148,7 +148,7 @@ h1 {
     display: block;
 }
 
- .zoom-image {
+.zoom-image {
             width:60px;
             height:auto;
             transition: transform 0.2s ease-in-out;
@@ -170,14 +170,22 @@ h1 {
             padding: 20px;
         }
 
+#players-container {
+    display: grid;
+}
+
+.player-name {
+    display: grid;
+}
+
 
 
 @media screen and (width < 600px) {
     .characters-container  {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: repeat(4, 1fr);
-        }
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(4, 1fr);
+    }
         
     .submit-container {
         display: grid;

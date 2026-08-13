@@ -286,7 +286,7 @@ function update() { //used for drawing frames for our game
             let endingScore = score;
             console.log(endingScore);
             localStorage.setItem('finalScore', endingScore);
-            const newScore = localStorage.getItem('finalScore');
+            
             }
         }
 

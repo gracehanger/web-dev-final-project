@@ -1,10 +1,9 @@
 //trying to get usernames to be submitted and error message if it's already been taken
+const storedName = localStorage.getItem('savedName');
+
 document.addEventListener('DOMContentLoaded', function() {
-    const storedName = localStorage.getItem('savedName');
-    const chooseCharacterMessage = document.getElementById('chooseCharacterMessage');
-    
     if (storedName) {
-        chooseCharacterMessage.textContent = `CHOOSE YOUR CHARACTER, ${storedName}:`;
+        document.getElementById('chooseCharacterMessage').textContent = `CHOOSE YOUR CHARACTER, ${storedName}:`;
     };
 
 

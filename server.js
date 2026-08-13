@@ -77,6 +77,6 @@ app.use("/players", async (request, response) => {
 
 app.listen(3000, () => {
   console.log('Server Running');
-  console.log('Navigate to http://localhost:3000 in your browser');
+  console.log('Navigate to http://localhost:3000 in your browser'); //saying CANNOT GET / when i open this
 });
 
