@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chooseCharacterMessage').textContent = `CHOOSE YOUR CHARACTER, ${storedName}:`;
     };
 
-
 });
 
 //attempt at getting the name to store to the api, doesn't let you click on a player, it says storedName isn't 
@@ -167,47 +166,97 @@ hoverElementCow.addEventListener('mouseleave', () => {
 const endermanButton = document.getElementById('enderman-trigger');
 endermanButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'enderman-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'enderman')
+         .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const villagerButton = document.getElementById('villager-trigger');
 villagerButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'villager-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'villager')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const steveButton = document.getElementById('steve-trigger');
 steveButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'steve-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'steve')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const witchButton = document.getElementById('witch-trigger');
 witchButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'witch-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'witch')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const skeletorButton = document.getElementById('skeletor-trigger');
 skeletorButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'skeletor-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'skeletor')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const creeperButton = document.getElementById('creeper-trigger');
 creeperButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'creeper-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'creeper')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const sheepButton = document.getElementById('sheep-trigger');
 sheepButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'sheep-trigger');
-    window.location.href = './game.html';
+    
+    postPlayers(storedName, 'sheep')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
 
 const cowButton = document.getElementById('cow-trigger');
 cowButton.addEventListener('click', function() {
     localStorage.setItem('clickedButton', 'cow-trigger');
-    window.location.href = './game.html';
+
+    postPlayers(storedName, 'cow')
+        .then(e => {
+            window.location.href = `./game.html?playerName=${storedName}`;
+        });
 });
+
+const postPlayers = async (name, character) => {
+    const body = JSON.stringify({
+        storedName: name,
+        character: character
+    });
+
+    await fetch(
+        "/players",
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: body
+        },
+    )
+}

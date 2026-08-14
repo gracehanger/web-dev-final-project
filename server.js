@@ -24,11 +24,16 @@ function readPlayers() {
 };
 
 function writePlayers(players) {
+  console.log(PLAYERS_FILE);
+  console.log(`players in write file function: ${players}`);
+
   fs.writeFileSync(PLAYERS_FILE, JSON.stringify(players, null, 2));  //allows you to save the new player permanently 
 }
 
 //going into players.json and reading what's in there
-app.get('/players', (req, res) => {     
+app.get('/players', (req, res) => {  
+  console.log('getting players');
+
   const players = readPlayers();
   res.json(players);
 });
@@ -74,6 +79,8 @@ app.use("/players", async (request, response) => {
         data: await fetchPlayers(),
     });
 });
+
+
 
 app.listen(3000, () => {
   console.log('Server Running');

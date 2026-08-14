@@ -5,11 +5,16 @@
 
 async function fetchPlayers() {
     const endpoint = '/players';
+
+    console.log('Fetching');
+
     try {
         const response = await fetch(endpoint);
+
+
+
         const playersContainer = document.getElementById("players-container");
         const returningPlayers = await response.json();
-        console.log(returningPlayers);
         const receivedPlayers = returningPlayers;
 
     

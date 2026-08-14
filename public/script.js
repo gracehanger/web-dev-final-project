@@ -158,6 +158,8 @@ let selectedChar;
 window.addEventListener('DOMContentLoaded', function() {
     const playerSelection = localStorage.getItem('clickedButton');
 
+    console.log(`test: ${playerSelection}`);
+
     if (playerSelection) {
         console.log('The player selected was: ' + playerSelection);
     };
@@ -187,6 +189,11 @@ window.addEventListener('DOMContentLoaded', function() {
     else if (playerSelection === 'cow-trigger') {
         selectedChar = character.cow;
     }
+    else {
+        console.log("Waiting for character selection...");
+        return;
+    }
+
     console.log(selectedChar.name);
 });
 
@@ -283,10 +290,12 @@ function update() { //used for drawing frames for our game
         if (!gameOver && detectCollision(char, obstacle)) {
             gameOver = true;
             charImg.src = selectedChar.dead; 
+
             let endingScore = score;
             console.log(endingScore);
             localStorage.setItem('finalScore', endingScore);
-            
+
+            postPlayerUpdate();
             }
         }
 
@@ -302,6 +311,28 @@ function update() { //used for drawing frames for our game
     context.fillText(score, 5, 30);
 
 };
+
+
+const postPlayerUpdate =  async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const playerName = urlParams.get('playerName');
+    
+    const body = JSON.stringify({
+        storedName: playerName,
+        character: selectedChar.name
+    });
+
+    await fetch(
+        "/players",
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: body
+        },
+    )
+}
 
   //cloud drawing
 function moveClouds() {
