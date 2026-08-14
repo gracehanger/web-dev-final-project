@@ -37,7 +37,7 @@ WARNING: There are sound effects in the "Select Your Character" page.
 * Node.js server was created using Express. This server allows for player name and high scores to be saved to the server. 
 
 **5. Create an API that implements HTTP requests for GET and POST. Data can be stored in a JSON file on the back-end.**
-* Player name and scores are stored in a JSON file on the back-end
+* Player name are stored in a JSON file on the back-end and then posted onto a previous players page.
 
 ### Other Requirements
 
@@ -51,9 +51,9 @@ WARNING: There are sound effects in the "Select Your Character" page.
 ### Functionality Notes:
 * The sound effects currently don't begin until the user interacts with the page. I need to change it to have the name and character selection be on the same page, with the character selection hidden until a valid name is entered. That way, the user has interacted with the screen and the sound effects and animations will work normally.  
 
-* Currently, the name and scores do not post to the JSON file. I'm still trying to iron that part out. 
+* Currently, the scores do not update to the JSON folder, but the names do. I'm still trying to iron that out.
 
-
+* This project was definitely a bit over my level for a first capstone project. I am going to take a step back and do simpler JS projects to better my skills and understandings before I do a large project like this. 
 
 
 
